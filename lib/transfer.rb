@@ -3,7 +3,7 @@ require 'pry'
 class Transfer
 
 attr_reader :sender,:receiver,:amount
-attr_writer
+
 attr_accessor :status
 
   def initialize(sender,receiver,amount)
@@ -20,7 +20,7 @@ attr_accessor :status
   end
 
   def execute_transaction
-    if valid? && sender.balance > amount && self.status = "pending"
+    if valid? && sender.balance > amount && self.status == "pending"
       sender.balance -= amount
       receiver.balance += amount
       self.status = "complete"
@@ -31,6 +31,11 @@ attr_accessor :status
   end
 
   def reverse_transfer
-    
+    if valid? && receiver.balance > amount && self.status == "complete"
+      receiver.balance -= amount
+      sender.balance += amount
+  
+      self.status = "reversed"
+    end
   end
 end
