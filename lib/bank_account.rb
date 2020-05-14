@@ -1,6 +1,6 @@
 class BankAccount
     attr_reader :name
-    attr_accessor :balance, :status, :broke, :sender, :receiver
+    attr_accessor :balance, :status
     @@all = []
     def initialize(name)
         @name = name
@@ -19,11 +19,7 @@ class BankAccount
     end
 
     def valid?
-        if self.balance > 0 && self.status == "open"
-            true
-        else
-            false
-        end
+        balance > 0 && status == "open"
     end
 
     def broke
@@ -31,9 +27,7 @@ class BankAccount
     end
 
     def close_account
-        if self.status == "open"
-            self.status = "closed"
-        end
+        self.status = "closed"
     end
 end
 
